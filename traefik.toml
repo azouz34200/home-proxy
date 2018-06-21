@@ -1,0 +1,50 @@
+# defaultEntryPoints must be at the top 
+# because it should not be in any table below
+
+defaultEntryPoints = ["http", "https"]
+
+# Entrypoints, http and https
+[entryPoints]
+# http should be redirected to https
+[entryPoints.http]
+address = ":80"
+[entryPoints.http.redirect]
+entryPoint = "https"
+
+# https is the default
+[entryPoints.https]
+address = ":443"
+
+[entryPoints.https.tls]
+
+# Enable ACME (Let's Encrypt): automatic SSL
+[acme]
+email = "mickael.azema@gmail.com"
+storage = "/acme.json"
+entryPoint = "https"
+onDemand = false
+OnHostRule = true
+[acme.httpChallenge]
+  entryPoint = "http"
+[docker]
+endpoint = "unix:///var/run/docker.sock"
+domain = "azema.net"
+watch = true
+exposedByDefault = false
+
+[file]
+  filename = "rules.toml"
+  watch = true
+[api]
+  # Name of the related entry point
+  #
+  # Optional
+  # Default: "traefik"
+  #
+
+  # Enabled Dashboard
+  #
+  # Optional
+  # Default: true
+  #
+  dashboard = true

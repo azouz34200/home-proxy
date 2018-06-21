@@ -1,0 +1,19 @@
+[backends]
+
+  [backends.pyload]
+
+    [backends.pyload.servers]
+      [backends.pyload.servers.server0]
+        url = "http://192.168.0.151:80"
+        weight = 1
+
+        # Frontends
+[frontends]
+
+  [frontends.pyload]
+    entryPoints = ["http", "https"]
+    backend = "pyload"
+    passHostHeader = true
+    [frontends.pyload.routes]
+      [frontends.pyload.routes.route0]
+        rule = "Host:download.azema.net"
